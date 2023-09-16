@@ -10,11 +10,6 @@ import CalculatorViewStyles from '../styles/views/CalculatorViewStyles';
 function CalculatorView() {
   const [input, setInput] = useState('');
 
-  const setInputCallback = (newInput) => {
-    const newInputDisplay = input + newInput;
-    setInput(newInputDisplay);
-  };
-
   return (
     <View style={CalculatorViewStyles.container}>
       <View style={CalculatorViewStyles.inputContainer}>
@@ -23,7 +18,7 @@ function CalculatorView() {
 
       <View style={CalculatorViewStyles.buttonsContainer}>
         <View style={CalculatorViewStyles.inputButtonsContainer}>
-          <NumberButtonsComponent setInput={setInputCallback} />
+          <NumberButtonsComponent setInput={setInput} input={input} />
         </View>
 
         <View style={CalculatorViewStyles.arithmeticButtonsContainer}>

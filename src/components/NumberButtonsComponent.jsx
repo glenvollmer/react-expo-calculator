@@ -1,14 +1,20 @@
 import React, { View } from 'react-native';
 import ButtonComponent from './ButtonComponent';
+import ClearButtonComponent from './ClearButtonComponent';
 
 import NumberButtonsComponentStyles from '../styles/components/NumberButtonsComponentStyles';
 
 function NumberButtonsComponent(props) {
-  const { setInput } = props;
+  const { setInput, input } = props;
+
+  const setInputCallback = (newInput) => {
+    const newInputDisplay = input + newInput;
+    setInput(newInputDisplay);
+  };
 
   const CreateNumberButtons = (args) => {
     const numberButtons = [];
-    const { setInputCallback } = args;
+    const { inputCallback } = args;
 
     for (let i = 0; i < 10; i += 1) {
       const buttonCharacter = i.toString();
@@ -17,7 +23,7 @@ function NumberButtonsComponent(props) {
         <ButtonComponent
           key={i}
           buttonCharacter={buttonCharacter}
-          setInput={setInputCallback}
+          setInput={inputCallback}
         />
       );
 
@@ -29,12 +35,14 @@ function NumberButtonsComponent(props) {
 
   return (
     <View style={NumberButtonsComponentStyles.container}>
-      <CreateNumberButtons setInputCallback={setInput} />
+      <CreateNumberButtons inputCallback={setInputCallback} />
 
       <ButtonComponent
         buttonCharacter="."
-        setInput={setInput}
+        setInput={setInputCallback}
       />
+
+      <ClearButtonComponent setInput={setInput} />
     </View>
   );
 }
