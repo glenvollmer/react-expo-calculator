@@ -1,5 +1,5 @@
 import React, { View } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import NumberButtonsComponent from '../components/NumberButtonsComponent';
 import ArithmeticButtonsComponent from '../components/ArithmeticButtonsComponent';
@@ -8,11 +8,25 @@ import InputFieldComponent from '../components/InputFieldComponent';
 import CalculatorViewStyles from '../styles/views/CalculatorViewStyles';
 
 function CalculatorView() {
+  const [a, setA] = useState();
+  const [b, setB] = useState();
+  const [operation, setOperation] = useState('');
   const [input, setInput] = useState('');
 
-  const setInputCallback = (newInput) => {
-    const newInputDisplay = input + newInput;
-    setInput(newInputDisplay);
+  useEffect(() => {
+    setA(input);
+  }, [input]);
+
+  useEffect(() => {
+    setB(a);
+    setA();
+  }, [operation]);
+
+  const clear = () => {
+    setA();
+    setB();
+    setInput('');
+    setOperation('');
   };
 
   return (
@@ -23,11 +37,18 @@ function CalculatorView() {
 
       <View style={CalculatorViewStyles.buttonsContainer}>
         <View style={CalculatorViewStyles.inputButtonsContainer}>
-          <NumberButtonsComponent setInput={setInputCallback} />
+          <NumberButtonsComponent setInput={setInput} input={input} a={a} b={b} clear={clear} />
         </View>
 
         <View style={CalculatorViewStyles.arithmeticButtonsContainer}>
-          <ArithmeticButtonsComponent />
+          <ArithmeticButtonsComponent
+            setOperation={setOperation}
+            operation={operation}
+            a={a}
+            b={b}
+            setInput={setInput}
+            clear={clear}
+          />
         </View>
       </View>
     </View>

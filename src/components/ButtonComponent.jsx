@@ -5,7 +5,11 @@ function ButtonComponent(props) {
   const { buttonCharacter, setInput } = props;
 
   const setInputCallback = () => {
-    setInput(buttonCharacter);
+    if (buttonCharacter === 'c') {
+      setInput('');
+    } else {
+      setInput(buttonCharacter);
+    }
   };
 
   return (

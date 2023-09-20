@@ -16,7 +16,8 @@ const CalculatorViewStyles = StyleSheet.create({
   buttonsContainer: {
     flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    maxHeight: '28%',
+    marginBottom: '10%',
   },
 
   inputButtonsContainer: {
