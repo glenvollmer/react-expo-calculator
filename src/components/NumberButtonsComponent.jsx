@@ -1,15 +1,20 @@
 import React, { View } from 'react-native';
 import ButtonComponent from './ButtonComponent';
-import ClearButtonComponent from './ClearButtonComponent';
 
 import NumberButtonsComponentStyles from '../styles/components/NumberButtonsComponentStyles';
 
 function NumberButtonsComponent(props) {
-  const { setInput, input } = props;
+  const {
+    setInput, input, a, b, clear,
+  } = props;
 
   const setInputCallback = (newInput) => {
-    const newInputDisplay = input + newInput;
-    setInput(newInputDisplay);
+    if ((a === undefined && b === undefined) || (a !== undefined && b !== undefined)) {
+      const newInputDisplay = input + newInput;
+      setInput(newInputDisplay);
+    } else if (a === undefined && b !== undefined) {
+      setInput(newInput);
+    }
   };
 
   const CreateNumberButtons = (args) => {
@@ -42,7 +47,10 @@ function NumberButtonsComponent(props) {
         setInput={setInputCallback}
       />
 
-      <ClearButtonComponent setInput={setInput} />
+      <ButtonComponent
+        buttonCharacter="c"
+        setInput={clear}
+      />
     </View>
   );
 }
